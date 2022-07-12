@@ -1,6 +1,8 @@
-import { FC, useReducer, useState } from 'react';
+import { FC, useEffect, useReducer, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FamilyMember } from '../FamilyMembers/FamilyMembers';
 import './FamilyMemberDetails.css';
+import axios from '../../util/axios';
 
 interface FamilyMemberDetailsProps {}
 
@@ -20,6 +22,8 @@ function memberReducer(
       return { ...state, middle_name: action.payload };
     case 'last_name':
       return { ...state, last_name: action.payload };
+    case 'address':
+      return { ...state, address: action.payload };
     case 'relationship':
       return { ...state, relationship: action.payload };
     default:
@@ -38,7 +42,25 @@ const FamilyMemberDetails: FC<
     relationship: 'child',
   });
 
-  const [disabledInputs, setDisabledInputs] = useState(true);
+  const { state } = useLocation();
+  const [disabledInputs, setDisabledInputs] = useState(
+    (state as any).editDetails
+  );
+
+  const getFamilyMemberDetails = async () => {
+    const member_id = (state as any).member_id;
+    const { data } = await axios.get(`/family/member/${member_id}`);
+
+    dispatch({ type: 'first_name', payload: data.firsName });
+    dispatch({ type: 'middle_name', payload: data.middleName });
+    dispatch({ type: 'last_name', payload: data.lastName });
+    dispatch({ type: 'address', payload: data.address });
+    dispatch({ type: 'relationship', payload: data.relationship });
+  };
+
+  useEffect(() => {
+    getFamilyMemberDetails();
+  }, []);
 
   return (
     <div>
@@ -56,6 +78,7 @@ const FamilyMemberDetails: FC<
         <select
           className='input-box'
           disabled={disabledInputs}
+          value={memberInfo.relationship}
           onChange={(e) =>
             dispatch({ type: 'relationship', payload: e.target.value })
           }

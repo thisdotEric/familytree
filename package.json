@@ -10,6 +10,8 @@
     "knex": "knex --knexfile src/database/knexfile.ts"
   },
   "dependencies": {
+    "@types/cors": "^2.8.12",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "knex": "^2.1.0",

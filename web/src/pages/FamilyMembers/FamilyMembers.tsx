@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './FamilyMembers.css';
 
 interface FamilyMembersProps {}
@@ -10,6 +10,7 @@ export interface FamilyMember {
   middle_name: string;
   last_name: string;
   relationship: string;
+  address?: string;
 }
 
 const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
@@ -37,10 +38,21 @@ const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
     },
   ]);
 
-  const params = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  console.log(params, location);
+  const memberAction = (
+    editDetails: boolean,
+    member_id: number,
+    first_name: string
+  ) => {
+    navigate(`${location.pathname}/${first_name}`, {
+      state: {
+        editDetails,
+        member_id,
+      },
+    });
+  };
 
   return (
     <div id='family-member-wrapper'>
@@ -54,11 +66,24 @@ const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
             </p>
 
             <div className='actions'>
-              <button className='action-btn' id='details'>
+              <button
+                className='action-btn'
+                id='details'
+                onClick={() => {
+                  memberAction(true, member_id, first_name);
+                }}
+              >
                 Details
               </button>
               &nbsp;&nbsp;
-              <button className='action-btn'>Update</button>
+              <button
+                className='action-btn'
+                onClick={() => {
+                  memberAction(false, member_id, first_name);
+                }}
+              >
+                Update
+              </button>
               &nbsp;&nbsp;
               <button className='action-btn' id='delete'>
                 Delete
