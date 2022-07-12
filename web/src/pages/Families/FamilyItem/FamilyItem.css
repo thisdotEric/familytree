@@ -1,0 +1,31 @@
+#family-item-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 7px;
+  margin: 10px 30px 10px 30px;
+  font-size: 17px;
+  border-radius: 10px;
+  background: rgb(216, 215, 215);
+}
+
+.family-name {
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.address {
+}
+
+#view-btn {
+  padding: 10px 15px;
+  font-weight: bold;
+  background: #7272c4;
+  border: none;
+  color: white;
+  border-radius: 15px;
+}
+
+#view-btn:hover {
+  background: #5d5da1;
+}

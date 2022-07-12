@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Families from './pages/Family';
+import Families from './pages/Families';
 import Layout from './pages/Layout';
 
 function App() {

@@ -1,9 +1,10 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import axios from '../../util/axios';
+import FamilyItem from './FamilyItem';
 
 interface FamiliesProps {}
 
-interface Family {
+export interface Family {
   family_id: number;
   family_name: string;
   address: string;
@@ -24,8 +25,8 @@ const Families: FC<FamiliesProps> = ({}: FamiliesProps) => {
 
   return families.length ? (
     <div>
-      {families.map(() => (
-        <p>sdf</p>
+      {families.map((family) => (
+        <FamilyItem family={family} />
       ))}
     </div>
   ) : (
