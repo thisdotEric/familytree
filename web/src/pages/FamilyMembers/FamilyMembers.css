@@ -1,0 +1,44 @@
+.family-member {
+  color: black;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  margin: 15px;
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#family-member-wrapper {
+  width: 60%;
+  margin: 0 auto;
+}
+
+#relationship {
+  font-weight: bold;
+  font-size: 14px;
+  font-style: italic;
+  padding-right: 10px;
+}
+
+.action-btn {
+  border: none;
+  background: none;
+  font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#delete {
+  color: rgb(206, 37, 37);
+}
+
+#details {
+  font-weight: bold;
+}
+
+.action-btn:hover {
+  text-decoration: underline;
+}
+
+#relationship {
+  font-weight: bold;
+}

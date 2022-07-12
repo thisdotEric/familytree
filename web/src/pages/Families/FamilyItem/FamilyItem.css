@@ -3,10 +3,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 7px;
-  margin: 10px 30px 10px 30px;
   font-size: 17px;
   border-radius: 10px;
-  background: rgb(216, 215, 215);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .family-name {

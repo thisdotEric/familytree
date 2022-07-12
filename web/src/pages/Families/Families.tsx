@@ -23,14 +23,12 @@ const Families: FC<FamiliesProps> = ({}: FamiliesProps) => {
     getAllFamilies();
   }, []);
 
-  return families.length ? (
+  return (
     <div>
       {families.map((family) => (
         <FamilyItem family={family} />
       ))}
     </div>
-  ) : (
-    <p>Loading...</p>
   );
 };
 
