@@ -6,7 +6,8 @@
   "author": "John Eric Siguenza <siguenzajohneric@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd src/server.ts"
+    "dev": "tsnd src/server.ts",
+    "knex": "knex --knexfile src/database/knexfile.ts"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
