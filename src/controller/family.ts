@@ -16,4 +16,11 @@ const getAllFamilies = async (_req: Request, res: Response) => {
   res.status(200).send(families);
 };
 
-export { getAllFamilyMembers, getAllFamilies };
+const getFamilyMemberDetails = async (req: Request, res: Response) => {
+  const member_id = parseInt(`${req.params.member_id}`);
+
+  const memberDetails = await familyService.getFamilyMemberDetails(member_id);
+  res.status(200).send(memberDetails);
+};
+
+export { getAllFamilyMembers, getAllFamilies, getFamilyMemberDetails };

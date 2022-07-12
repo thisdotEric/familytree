@@ -14,4 +14,8 @@ export default class FamilyService {
   async getAllFamilyMembers(family_id: number) {
     return this.familyRepo.getAllFamilyMembers(family_id);
   }
+
+  async getFamilyMemberDetails(member_id: number) {
+    return this.familyRepo.getMemberDetails(member_id);
+  }
 }
