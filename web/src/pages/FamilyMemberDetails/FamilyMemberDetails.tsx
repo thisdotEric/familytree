@@ -1,13 +1,36 @@
-import { FC, useState } from 'react';
+import { FC, useReducer, useState } from 'react';
 import { FamilyMember } from '../FamilyMembers/FamilyMembers';
 import './FamilyMemberDetails.css';
 
 interface FamilyMemberDetailsProps {}
 
+interface MemberAction {
+  type: keyof FamilyMember;
+  payload: string;
+}
+
+function memberReducer(
+  state: FamilyMember,
+  action: MemberAction
+): FamilyMember {
+  switch (action.type) {
+    case 'first_name':
+      return { ...state, first_name: action.payload };
+    case 'middle_name':
+      return { ...state, middle_name: action.payload };
+    case 'last_name':
+      return { ...state, last_name: action.payload };
+    case 'relationship':
+      return { ...state, relationship: action.payload };
+    default:
+      return state;
+  }
+}
+
 const FamilyMemberDetails: FC<
   FamilyMemberDetailsProps
 > = ({}: FamilyMemberDetailsProps) => {
-  const [memberInfo, setMemberInfo] = useState<FamilyMember>({
+  const [memberInfo, dispatch] = useReducer(memberReducer, {
     first_name: 'John Eric',
     middle_name: 'Mendoza',
     last_name: 'Siguenza',
@@ -30,11 +53,18 @@ const FamilyMemberDetails: FC<
         }}
       >
         <label>Relationship</label>
-        <select className='input-box' disabled={disabledInputs}>
-          <option>Mother</option>
-          <option>Father</option>
-          <option>Child</option>
+        <select
+          className='input-box'
+          disabled={disabledInputs}
+          onChange={(e) =>
+            dispatch({ type: 'relationship', payload: e.target.value })
+          }
+        >
+          <option value={'mother'}>Mother</option>
+          <option value={'father'}>Father</option>
+          <option value={'child'}>Child</option>
         </select>
+
         <label>First Name</label>
         <input
           type='text'
@@ -42,6 +72,9 @@ const FamilyMemberDetails: FC<
           className='input-box'
           value={memberInfo.first_name}
           disabled={disabledInputs}
+          onChange={(e) =>
+            dispatch({ type: 'first_name', payload: e.target.value })
+          }
         />
 
         <label>Middle Name</label>
@@ -51,6 +84,9 @@ const FamilyMemberDetails: FC<
           className='input-box'
           value={memberInfo.middle_name}
           disabled={disabledInputs}
+          onChange={(e) =>
+            dispatch({ type: 'middle_name', payload: e.target.value })
+          }
         />
 
         <label>Last Name</label>
@@ -60,6 +96,9 @@ const FamilyMemberDetails: FC<
           className='input-box'
           disabled={disabledInputs}
           value={memberInfo.last_name}
+          onChange={(e) =>
+            dispatch({ type: 'last_name', payload: e.target.value })
+          }
         />
 
         {disabledInputs ? (
