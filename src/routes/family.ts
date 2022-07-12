@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import { getAllFamilyMembers } from '../controller/family';
+import { getAllFamilies, getAllFamilyMembers } from '../controller/family';
 
 const router = Router();
 
-router.get('/', getAllFamilyMembers);
+router.get('/', getAllFamilies);
+router.get('/:family_id', getAllFamilyMembers);
+router.get('/:family_id/member/:member_id', getAllFamilyMembers);
 
 export default router;
