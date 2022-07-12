@@ -1,0 +1,25 @@
+.header-wrapper {
+  background: #7272c4;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+#app-name {
+  font-size: 25px;
+  padding: 10px 10px 10px 60px;
+  font-weight: lighter;
+}
+
+#tree, #family-name {
+  font-weight: bold;
+  color: black;
+}
+
+#family-name {
+  font-size: 16px;
+}
+
+#inner-text {
+  color: rgb(23, 22, 22);
+}
