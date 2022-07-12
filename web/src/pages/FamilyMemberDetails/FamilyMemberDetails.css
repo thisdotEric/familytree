@@ -1,0 +1,44 @@
+#members-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  margin-top: 20px;
+  margin-left: 150px;
+}
+
+.input-box {
+  padding: 10px 7px;
+  font-weight: bold;
+  width: 30%;
+  margin: 10px;
+  font-size: 16px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border: none;
+}
+
+#page-title {
+  font-size: 20px;
+  padding-top: 20px;
+  padding-left: 150px;
+  font-weight: bold;
+}
+
+label {
+  padding-top: 10px;
+  font-size: 13px;
+}
+
+#submit-btn {
+  background: #7272c4;
+  color: white;
+}
+
+#submit-btn:hover {
+  background: #5d5da1;
+}
+
+#enable-input-btn {
+  background: #7272c4;
+  color: white;
+}
