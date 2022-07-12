@@ -1,13 +1,14 @@
 import { Knex } from 'knex';
+import { FAMILY, FAMILY_MEMBERS } from '../constants/table';
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema
-    .createTable('family', (table) => {
+    .createTable(FAMILY, (table) => {
       table.increments('family_id').notNullable().unique().unsigned();
       table.string('family_name').notNullable();
       table.string('address').nullable();
     })
-    .createTable('members', (table) => {
+    .createTable(FAMILY_MEMBERS, (table) => {
       table.increments('member_id').notNullable().unique().unsigned();
       table.string('first_name').notNullable();
       table.string('middle_name').notNullable();
@@ -17,11 +18,13 @@ export async function up(knex: Knex): Promise<void> {
       table
         .foreign('family_id')
         .references('family_id')
-        .inTable('family')
+        .inTable(FAMILY)
         .onDelete('CASCADE');
     });
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTableIfExists('members').dropTableIfExists('family');
+  return knex.schema
+    .dropTableIfExists(FAMILY_MEMBERS)
+    .dropTableIfExists(FAMILY);
 }
