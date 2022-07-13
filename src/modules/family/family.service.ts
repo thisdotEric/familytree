@@ -1,4 +1,5 @@
-import FamilyRepository from './family.repository';
+import { FamilyMember } from 'src/interfaces/family';
+import FamilyRepository, { FamilyMemberWithID } from './family.repository';
 
 export default class FamilyService {
   private readonly familyRepo: FamilyRepository;
@@ -21,5 +22,15 @@ export default class FamilyService {
 
   async deleteFamilyMember(member_id: number) {
     return this.familyRepo.deleteFamilyMember(member_id);
+  }
+
+  async addNewFamilyMember(family_id: number, newMember: FamilyMember) {
+    return this.familyRepo.addNewFamilyMember(family_id, newMember);
+  }
+
+  async updateFamilyMemberDetails(
+    updatedMemberInfo: Partial<FamilyMemberWithID>
+  ) {
+    return this.familyRepo.updateMemberInformation(updatedMemberInfo);
   }
 }

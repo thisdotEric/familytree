@@ -11,6 +11,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.json());
 
 app.get('/', (_req: Request, res: Response) => {
   res.send('Hello');

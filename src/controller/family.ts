@@ -30,9 +30,36 @@ const deleteFamilyMember = async (req: Request, res: Response) => {
   res.status(200).send('Ok');
 };
 
+const addNewFamilyMember = async (_req: Request, res: Response) => {
+  // const newMember = await familyService.addNewFamilyMember(1, {
+  //   firstName: 'John Eric',
+  //   middleName: 'Mendoza',
+  //   lastName: '',
+  //   address: '',
+  //   relationship: 'child',
+  // });
+
+  res.status(201).send('Ok');
+};
+
+const updateFamilyMemberDetails = async (req: Request, res: Response) => {
+  const { firstName, middleName, relationship, member_id } = req.body;
+
+  await familyService.updateFamilyMemberDetails({
+    member_id,
+    firstName,
+    middleName,
+    relationship,
+  });
+
+  res.status(200).send('Ok');
+};
+
 export {
   getAllFamilyMembers,
   getAllFamilies,
   getFamilyMemberDetails,
   deleteFamilyMember,
+  addNewFamilyMember,
+  updateFamilyMemberDetails,
 };
