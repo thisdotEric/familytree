@@ -67,8 +67,6 @@ export default class FamilyRepository {
   }
 
   async deleteFamilyMember(member_id: number) {
-    console.log('Sdfkbsdflabsdf');
-
     await this.db(FAMILY_MEMBERS).where({ member_id }).delete();
   }
 
