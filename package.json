@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsnd src/server.ts",
-    "knex": "knex --knexfile src/database/knexfile.ts"
+    "knex": "knex --knexfile src/database/knexfile.ts",
+    "build": "tsc -p .",
+    "migrations": "yarn knex migrate:rollback --all && yarn knex migrate:latest && yarn knex seed:run"
   },
   "dependencies": {
     "@types/cors": "^2.8.12",
