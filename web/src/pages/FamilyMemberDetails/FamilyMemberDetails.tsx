@@ -7,8 +7,9 @@ import axios from '../../util/axios';
 interface FamilyMemberDetailsProps {}
 
 interface MemberAction {
-  type: keyof FamilyMember;
+  type: keyof FamilyMember | 'initial';
   payload: string;
+  initialState?: FamilyMember;
 }
 
 function memberReducer(
@@ -16,6 +17,8 @@ function memberReducer(
   action: MemberAction
 ): FamilyMember {
   switch (action.type) {
+    case 'initial':
+      return { ...action.initialState! };
     case 'firstName':
       return { ...state, firstName: action.payload };
     case 'middleName':
@@ -35,10 +38,10 @@ const FamilyMemberDetails: FC<
   FamilyMemberDetailsProps
 > = ({}: FamilyMemberDetailsProps) => {
   const [memberInfo, dispatch] = useReducer(memberReducer, {
-    firstName: 'John Eric',
-    middleName: 'Mendoza',
-    lastName: 'Siguenza',
-    member_id: 1,
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    member_id: -1,
     relationship: 'child',
   });
 
@@ -49,13 +52,9 @@ const FamilyMemberDetails: FC<
 
   const getFamilyMemberDetails = async () => {
     const member_id = (state as any).member_id;
-    const { data } = await axios.get(`/family/member/${member_id}`);
 
-    dispatch({ type: 'firstName', payload: data.firsName });
-    dispatch({ type: 'middleName', payload: data.middleName });
-    dispatch({ type: 'lastName', payload: data.lastName });
-    dispatch({ type: 'address', payload: data.address });
-    dispatch({ type: 'relationship', payload: data.relationship });
+    const { data } = await axios.get(`/family/member/${member_id}`);
+    dispatch({ type: 'initial', payload: '', initialState: data });
   };
 
   useEffect(() => {
