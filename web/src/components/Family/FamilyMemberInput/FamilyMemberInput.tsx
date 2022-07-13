@@ -1,13 +1,17 @@
 import { FC, useReducer, useState } from 'react';
-import { useNavigate, useNavigationType } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FamilyMember } from '../../../pages/FamilyMembers/FamilyMembers';
 import axios from '../../../util/axios';
+import { removeLastLetterS } from '../../Header/Header';
+
+export type ActionType = 'add' | 'view' | 'update';
 
 interface FamilyMemberInputProps {
   familyMember: FamilyMember;
-  family_id: number;
-  pageAction: string;
-  actionType: 'add' | 'view' | 'update';
+  family_id?: number;
+  pageAction?: string;
+  actionType: ActionType;
+  setActionType?: React.Dispatch<React.SetStateAction<ActionType>>;
 }
 
 interface MemberAction {
@@ -48,6 +52,7 @@ const FamilyMemberInput: FC<FamilyMemberInputProps> = ({
   pageAction,
   actionType,
   family_id,
+  setActionType,
 }: FamilyMemberInputProps) => {
   const [memberInfo, dispatch] = useReducer(memberReducer, familyMember);
 
@@ -61,7 +66,13 @@ const FamilyMemberInput: FC<FamilyMemberInputProps> = ({
 
   return (
     <div>
-      <p id='page-title'>{pageAction}</p>
+      <p id='page-title'>
+        {pageAction
+          ? pageAction
+          : `${disabledInputs ? 'View' : 'Update'} ${
+              memberInfo.firstName
+            }'${removeLastLetterS(memberInfo.firstName)} details`}
+      </p>
 
       <form
         id='members-form'
@@ -77,7 +88,8 @@ const FamilyMemberInput: FC<FamilyMemberInputProps> = ({
 
             setSuccessMessage({
               showMessage: true,
-              message: 'New member added to the family.',
+              message:
+                'New member added to the family. Redirecting back in 2 seconds.',
             });
           } else {
             await axios.patch('/family/member', {
@@ -164,7 +176,8 @@ const FamilyMemberInput: FC<FamilyMemberInputProps> = ({
             className='input-box'
             id='enable-input-btn'
             onClick={() => {
-              setDisabledInputs(!disabledInputs);
+              setActionType!('update');
+              setDisabledInputs(false);
             }}
           >
             Edit Details
