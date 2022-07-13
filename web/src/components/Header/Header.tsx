@@ -16,7 +16,8 @@ const Header: FC<HeaderProps> = ({ banner }: HeaderProps) => {
       </Link>
       {banner && (
         <p id='inner-text'>
-          of the <span id='family-name'>{banner}</span>'s
+          of the <span id='family-name'>{banner}</span>'
+          {banner[banner.length - 1] !== 's' && 's'}
         </p>
       )}
     </div>
