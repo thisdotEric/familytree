@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    environment:
+      PORT: 3000
+      DB_NAME: familytree
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      FRONTEND_APP: http://localhost:3000
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: familytree
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
