@@ -1,42 +1,21 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './FamilyMembers.css';
+import axios from '../../util/axios';
 
 interface FamilyMembersProps {}
 
 export interface FamilyMember {
   member_id: number;
-  first_name: string;
-  middle_name: string;
-  last_name: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
   relationship: string;
   address?: string;
 }
 
 const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
-  const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>([
-    {
-      member_id: 1,
-      first_name: 'Alfonso Jr.',
-      middle_name: 'Babay',
-      last_name: 'Siguenza',
-      relationship: 'Father',
-    },
-    {
-      member_id: 2,
-      first_name: 'John Eric',
-      middle_name: 'Mendoza',
-      last_name: 'Siguenza',
-      relationship: 'child',
-    },
-    {
-      member_id: 3,
-      first_name: 'Mark Adrian',
-      middle_name: 'Mendoza',
-      last_name: 'Siguenza',
-      relationship: 'child',
-    },
-  ]);
+  const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>([]);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -44,9 +23,9 @@ const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
   const memberAction = (
     editDetails: boolean,
     member_id: number,
-    first_name: string
+    firstName: string
   ) => {
-    navigate(`${location.pathname}/${first_name}`, {
+    navigate(`${location.pathname}/${firstName}`, {
       state: {
         editDetails,
         member_id,
@@ -54,12 +33,28 @@ const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
     });
   };
 
+  const getAllFamilyMembers = async () => {
+    const family_id = (location.state as any).family_id;
+    const { data } = await axios.get(`/family/${family_id}`);
+
+    setFamilyMembers(data);
+  };
+
+  useEffect(() => {
+    getAllFamilyMembers();
+  }, []);
+
   return (
     <div id='family-member-wrapper'>
       {familyMembers.map(
-        ({ last_name, middle_name, first_name, member_id, relationship }) => (
+        ({
+          lastName: last_name,
+          middleName: middle_name,
+          firstName: first_name,
+          member_id,
+          relationship,
+        }) => (
           <div className='family-member' key={member_id}>
-            {/* <span id='relationship'>{relationship} </span> */}
             <p>
               {last_name}, {first_name} {middle_name} &nbsp;
               <span id='relationship'>{relationship}</span>

@@ -16,12 +16,12 @@ function memberReducer(
   action: MemberAction
 ): FamilyMember {
   switch (action.type) {
-    case 'first_name':
-      return { ...state, first_name: action.payload };
-    case 'middle_name':
-      return { ...state, middle_name: action.payload };
-    case 'last_name':
-      return { ...state, last_name: action.payload };
+    case 'firstName':
+      return { ...state, firstName: action.payload };
+    case 'middleName':
+      return { ...state, middleName: action.payload };
+    case 'lastName':
+      return { ...state, lastName: action.payload };
     case 'address':
       return { ...state, address: action.payload };
     case 'relationship':
@@ -35,9 +35,9 @@ const FamilyMemberDetails: FC<
   FamilyMemberDetailsProps
 > = ({}: FamilyMemberDetailsProps) => {
   const [memberInfo, dispatch] = useReducer(memberReducer, {
-    first_name: 'John Eric',
-    middle_name: 'Mendoza',
-    last_name: 'Siguenza',
+    firstName: 'John Eric',
+    middleName: 'Mendoza',
+    lastName: 'Siguenza',
     member_id: 1,
     relationship: 'child',
   });
@@ -51,9 +51,9 @@ const FamilyMemberDetails: FC<
     const member_id = (state as any).member_id;
     const { data } = await axios.get(`/family/member/${member_id}`);
 
-    dispatch({ type: 'first_name', payload: data.firsName });
-    dispatch({ type: 'middle_name', payload: data.middleName });
-    dispatch({ type: 'last_name', payload: data.lastName });
+    dispatch({ type: 'firstName', payload: data.firsName });
+    dispatch({ type: 'middleName', payload: data.middleName });
+    dispatch({ type: 'lastName', payload: data.lastName });
     dispatch({ type: 'address', payload: data.address });
     dispatch({ type: 'relationship', payload: data.relationship });
   };
@@ -93,10 +93,10 @@ const FamilyMemberDetails: FC<
           type='text'
           name='first_name'
           className='input-box'
-          value={memberInfo.first_name}
+          value={memberInfo.firstName}
           disabled={disabledInputs}
           onChange={(e) =>
-            dispatch({ type: 'first_name', payload: e.target.value })
+            dispatch({ type: 'firstName', payload: e.target.value })
           }
         />
 
@@ -105,10 +105,10 @@ const FamilyMemberDetails: FC<
           type='text'
           name='middle_name'
           className='input-box'
-          value={memberInfo.middle_name}
+          value={memberInfo.middleName}
           disabled={disabledInputs}
           onChange={(e) =>
-            dispatch({ type: 'middle_name', payload: e.target.value })
+            dispatch({ type: 'middleName', payload: e.target.value })
           }
         />
 
@@ -118,9 +118,9 @@ const FamilyMemberDetails: FC<
           name='last_name'
           className='input-box'
           disabled={disabledInputs}
-          value={memberInfo.last_name}
+          value={memberInfo.lastName}
           onChange={(e) =>
-            dispatch({ type: 'last_name', payload: e.target.value })
+            dispatch({ type: 'lastName', payload: e.target.value })
           }
         />
 
