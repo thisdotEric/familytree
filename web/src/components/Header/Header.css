@@ -11,7 +11,8 @@
   font-weight: lighter;
 }
 
-#tree, #family-name {
+#tree,
+#family-name {
   font-weight: bold;
   color: black;
 }
@@ -22,4 +23,9 @@
 
 #inner-text {
   color: rgb(23, 22, 22);
+}
+
+#home-link {
+  text-decoration: none;
+  color: black;
 }
