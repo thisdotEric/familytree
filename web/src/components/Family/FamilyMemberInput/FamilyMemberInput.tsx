@@ -70,8 +70,8 @@ const FamilyMemberInput: FC<FamilyMemberInputProps> = ({
         {pageAction
           ? pageAction
           : `${disabledInputs ? 'View' : 'Update'} ${
-              memberInfo.firstName
-            }'${removeLastLetterS(memberInfo.firstName)} details`}
+              familyMember.firstName
+            }'${removeLastLetterS(familyMember.firstName)} details`}
       </p>
 
       <form
