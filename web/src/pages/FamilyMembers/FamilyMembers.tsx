@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './FamilyMembers.css';
 import axios from '../../util/axios';
+import { useSetHeader } from '../../hooks';
 
 interface FamilyMembersProps {}
 
@@ -15,6 +16,7 @@ export interface FamilyMember {
 }
 
 const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
+  useSetHeader('Siguenza');
   const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>([]);
 
   const location = useLocation();

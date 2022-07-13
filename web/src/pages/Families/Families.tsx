@@ -1,4 +1,5 @@
 import { FC, useCallback, useEffect, useState } from 'react';
+import { useSetHeader } from '../../hooks';
 import axios from '../../util/axios';
 import FamilyItem from './FamilyItem';
 
@@ -11,8 +12,9 @@ export interface Family {
 }
 
 const Families: FC<FamiliesProps> = ({}: FamiliesProps) => {
-  const [families, setFamilies] = useState<Family[]>([]);
+  useSetHeader('');
 
+  const [families, setFamilies] = useState<Family[]>([]);
   const getAllFamilies = useCallback(async () => {
     const { data } = await axios.get('/family');
 
