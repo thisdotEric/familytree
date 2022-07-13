@@ -10,7 +10,7 @@
 .input-box {
   padding: 10px 7px;
   font-weight: bold;
-  width: 30%;
+  width: 40%;
   margin: 10px;
   font-size: 16px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
@@ -41,4 +41,11 @@ label {
 #enable-input-btn {
   background: #7272c4;
   color: white;
+}
+
+#success {
+  color: green;
+  padding-left: 15px;
+  font-size: 14px;
+  font-weight: bold;
 }

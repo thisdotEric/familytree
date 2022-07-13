@@ -42,3 +42,8 @@
 #relationship {
   font-weight: bold;
 }
+
+#no-members {
+  text-align: center;
+  padding-top: 20px;
+}

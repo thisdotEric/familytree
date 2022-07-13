@@ -6,6 +6,10 @@ interface HeaderProps {
   banner?: string;
 }
 
+export function removeLastLetterS(name: string) {
+  return name[name.length - 1] === 's' ? '' : 's';
+}
+
 const Header: FC<HeaderProps> = ({ banner }: HeaderProps) => {
   return (
     <div className='header-wrapper'>
@@ -17,7 +21,7 @@ const Header: FC<HeaderProps> = ({ banner }: HeaderProps) => {
       {banner && (
         <p id='inner-text'>
           of the <span id='family-name'>{banner}</span>'
-          {banner[banner.length - 1] !== 's' && 's'}
+          {removeLastLetterS(banner)}
         </p>
       )}
     </div>

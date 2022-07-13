@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { FamilyMember } from '../FamilyMembers/FamilyMembers';
 import './FamilyMemberDetails.css';
 import axios from '../../util/axios';
+import { removeLastLetterS } from '../../components/Header/Header';
 
 interface FamilyMemberDetailsProps {}
 
@@ -49,6 +50,7 @@ const FamilyMemberDetails: FC<
   const [disabledInputs, setDisabledInputs] = useState(
     (state as any).editDetails
   );
+  const [successUpdate, setSucessUpdate] = useState(false);
 
   const getFamilyMemberDetails = async () => {
     const member_id = (state as any).member_id;
@@ -63,14 +65,28 @@ const FamilyMemberDetails: FC<
 
   return (
     <div>
-      <p id='page-title'>Update John Eric's details</p>
+      <p id='page-title'>
+        {disabledInputs ? 'View' : 'Update'} {memberInfo.firstName}'
+        {removeLastLetterS(memberInfo.firstName)} details
+      </p>
 
       <form
         id='members-form'
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
 
-          console.log(memberInfo);
+          await axios.patch('/family/member', {
+            member_id: memberInfo.member_id,
+            firstName: memberInfo.firstName,
+            middleName: memberInfo.middleName,
+            relationship: memberInfo.relationship,
+          });
+
+          setSucessUpdate(true);
+
+          setTimeout(() => {
+            setSucessUpdate(false);
+          }, 2000);
         }}
       >
         <label>Relationship</label>
@@ -90,7 +106,6 @@ const FamilyMemberDetails: FC<
         <label>First Name</label>
         <input
           type='text'
-          name='first_name'
           className='input-box'
           value={memberInfo.firstName}
           disabled={disabledInputs}
@@ -102,7 +117,6 @@ const FamilyMemberDetails: FC<
         <label>Middle Name</label>
         <input
           type='text'
-          name='middle_name'
           className='input-box'
           value={memberInfo.middleName}
           disabled={disabledInputs}
@@ -114,12 +128,22 @@ const FamilyMemberDetails: FC<
         <label>Last Name</label>
         <input
           type='text'
-          name='last_name'
           className='input-box'
-          disabled={disabledInputs}
+          disabled
           value={memberInfo.lastName}
           onChange={(e) =>
             dispatch({ type: 'lastName', payload: e.target.value })
+          }
+        />
+
+        <label>Address</label>
+        <input
+          type='text'
+          className='input-box'
+          disabled
+          value={memberInfo.address}
+          onChange={(e) =>
+            dispatch({ type: 'address', payload: e.target.value })
           }
         />
 
@@ -135,12 +159,15 @@ const FamilyMemberDetails: FC<
             Edit Details
           </button>
         ) : (
-          <input
-            type='submit'
-            value='Submit'
-            className='input-box'
-            id='submit-btn'
-          />
+          <div>
+            <input
+              type='submit'
+              value='Submit'
+              className='input-box'
+              id='submit-btn'
+            />
+            {successUpdate && <p id='success'>Details successfully updated.</p>}
+          </div>
         )}
       </form>
     </div>

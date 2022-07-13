@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './FamilyMembers.css';
 import axios from '../../util/axios';
@@ -16,8 +16,10 @@ export interface FamilyMember {
 }
 
 const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
-  useSetHeader('Siguenza');
+  const { family_name } = useParams();
+  useSetHeader(family_name);
   const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>([]);
+  const [emptyMembers, setEmptyMembers] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,11 +41,14 @@ const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
     const family_id = (location.state as any).family_id;
     const { data } = await axios.get(`/family/${family_id}`);
 
+    if (data.length == 0) setEmptyMembers(true);
+
     setFamilyMembers(data);
   };
 
   useEffect(() => {
-    getAllFamilyMembers();
+    if (location.state == null) navigate('/');
+    else getAllFamilyMembers();
   }, []);
 
   return (
@@ -82,13 +87,29 @@ const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
                 Update
               </button>
               &nbsp;&nbsp;
-              <button className='action-btn' id='delete'>
+              <button
+                className='action-btn'
+                id='delete'
+                onClick={async () => {
+                  const answer = window.confirm('Confirm Delete?');
+
+                  if (answer) {
+                    setFamilyMembers((old) =>
+                      old.filter((member) => member.member_id != member_id)
+                    );
+
+                    await axios.delete(`/family/member/${member_id}`);
+                    await getAllFamilyMembers();
+                  }
+                }}
+              >
                 Delete
               </button>
             </div>
           </div>
         )
       )}
+      {emptyMembers && <p id='no-members'>No Family Members</p>}
     </div>
   );
 };
