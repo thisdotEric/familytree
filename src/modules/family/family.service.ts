@@ -18,4 +18,8 @@ export default class FamilyService {
   async getFamilyMemberDetails(member_id: number) {
     return this.familyRepo.getMemberDetails(member_id);
   }
+
+  async deleteFamilyMember(member_id: number) {
+    return this.familyRepo.deleteFamilyMember(member_id);
+  }
 }

@@ -23,4 +23,16 @@ const getFamilyMemberDetails = async (req: Request, res: Response) => {
   res.status(200).send(memberDetails);
 };
 
-export { getAllFamilyMembers, getAllFamilies, getFamilyMemberDetails };
+const deleteFamilyMember = async (req: Request, res: Response) => {
+  const member_id = parseInt(`${req.params.member_id}`);
+
+  await familyService.deleteFamilyMember(member_id);
+  res.status(200).send('Ok');
+};
+
+export {
+  getAllFamilyMembers,
+  getAllFamilies,
+  getFamilyMemberDetails,
+  deleteFamilyMember,
+};

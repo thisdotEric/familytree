@@ -2,7 +2,7 @@ import { Knex } from 'knex';
 import { FAMILY, FAMILY_MEMBERS } from '../constants/table';
 import { Family, FamilyMember } from '../../interfaces/family';
 
-type FamilyMemberDb = FamilyMember & { family_id: number };
+export type FamilyMemberDb = FamilyMember & { family_id: number };
 
 const family: Family[] = [
   {
