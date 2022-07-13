@@ -24,6 +24,7 @@ const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [family_id] = useState((location.state as any).family_id);
   const memberAction = (
     editDetails: boolean,
     member_id: number,
@@ -38,7 +39,6 @@ const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
   };
 
   const getAllFamilyMembers = async () => {
-    const family_id = (location.state as any).family_id;
     const { data } = await axios.get(`/family/${family_id}`);
 
     if (data.length == 0) setEmptyMembers(true);
@@ -53,6 +53,19 @@ const FamilyMembers: FC<FamilyMembersProps> = ({}: FamilyMembersProps) => {
 
   return (
     <div id='family-member-wrapper'>
+      <button
+        id='add-member-btn'
+        onClick={() => {
+          navigate(`${location.pathname}/add`, {
+            state: {
+              family_id,
+            },
+          });
+        }}
+      >
+        Add new member
+      </button>
+
       {familyMembers.map(
         ({
           lastName: last_name,

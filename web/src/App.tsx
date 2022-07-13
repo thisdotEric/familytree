@@ -4,6 +4,7 @@ import Families from './pages/Families';
 import Layout from './pages/Layout';
 import FamilyMembers from './pages/FamilyMembers';
 import FamilyMemberDetails from './pages/FamilyMemberDetails';
+import AddFamilyMembers from './pages/AddFamilyMembers';
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
           <Route
             path='/family/:family_name/:family_member'
             element={<FamilyMemberDetails />}
+          />
+          <Route
+            path='/family/:family_name/add'
+            element={<AddFamilyMembers />}
           />
         </Route>
       </Routes>
