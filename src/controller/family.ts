@@ -30,16 +30,17 @@ const deleteFamilyMember = async (req: Request, res: Response) => {
   res.status(200).send('Ok');
 };
 
-const addNewFamilyMember = async (_req: Request, res: Response) => {
-  // const newMember = await familyService.addNewFamilyMember(1, {
-  //   firstName: 'John Eric',
-  //   middleName: 'Mendoza',
-  //   lastName: '',
-  //   address: '',
-  //   relationship: 'child',
-  // });
+const addNewFamilyMember = async (req: Request, res: Response) => {
+  const family_id = parseInt(`${req.params.family_id}`);
 
-  res.status(201).send('Ok');
+  const { firstName, middleName, relationship } = req.body;
+  const newMember = await familyService.addNewFamilyMember(family_id, {
+    firstName,
+    middleName,
+    relationship,
+  });
+
+  res.status(201).send(newMember);
 };
 
 const updateFamilyMemberDetails = async (req: Request, res: Response) => {
@@ -55,6 +56,13 @@ const updateFamilyMemberDetails = async (req: Request, res: Response) => {
   res.status(200).send('Ok');
 };
 
+const getFamilyDetails = async (req: Request, res: Response) => {
+  const family_id = parseInt(`${req.params.family_id}`);
+
+  const familyDetails = await familyService.getFamilyDetails(family_id);
+  res.status(200).send(familyDetails);
+};
+
 export {
   getAllFamilyMembers,
   getAllFamilies,
@@ -62,4 +70,5 @@ export {
   deleteFamilyMember,
   addNewFamilyMember,
   updateFamilyMemberDetails,
+  getFamilyDetails,
 };

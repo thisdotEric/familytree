@@ -24,8 +24,15 @@ export default class FamilyService {
     return this.familyRepo.deleteFamilyMember(member_id);
   }
 
-  async addNewFamilyMember(family_id: number, newMember: FamilyMember) {
+  async addNewFamilyMember(
+    family_id: number,
+    newMember: Partial<FamilyMember>
+  ) {
     return this.familyRepo.addNewFamilyMember(family_id, newMember);
+  }
+
+  async getFamilyDetails(family_id: number) {
+    return this.familyRepo.getFamilyDetails(family_id);
   }
 
   async updateFamilyMemberDetails(

@@ -39,6 +39,15 @@ export default class FamilyRepository {
     return families;
   }
 
+  async getFamilyDetails(family_id: number) {
+    const familyDetails = await this.db(FAMILY)
+      .where({ family_id })
+      .select('*')
+      .limit(1);
+
+    return familyDetails[0];
+  }
+
   async getMemberDetails(member_id: number): Promise<FamilyMemberWithID> {
     const member_row = await this.db.raw(
       `select m.member_id, m.first_name, m.middle_name, f.family_name, m.relationship, f.address from members m 
@@ -65,7 +74,7 @@ export default class FamilyRepository {
 
   async addNewFamilyMember(
     family_id: number,
-    { firstName, middleName, relationship }: FamilyMember
+    { firstName, middleName, relationship }: Partial<FamilyMember>
   ) {
     const addedMember = await this.db(FAMILY_MEMBERS)
       .insert({
