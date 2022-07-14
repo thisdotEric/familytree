@@ -1,0 +1,18 @@
+#not-found-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+#not-found {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#link {
+  padding-top: 10px;
+  color: black;
+}

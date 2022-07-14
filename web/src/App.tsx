@@ -5,6 +5,7 @@ import Layout from './pages/Layout';
 import FamilyMembers from './pages/FamilyMembers';
 import FamilyMemberDetails from './pages/FamilyMemberDetails';
 import AddFamilyMembers from './pages/AddFamilyMembers';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             path='/family/:family_name/add'
             element={<AddFamilyMembers />}
           />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </Router>
